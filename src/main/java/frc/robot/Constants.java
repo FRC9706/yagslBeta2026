@@ -195,4 +195,20 @@ public final class Constants {
       public static final double kEncoderOffsetRotations = -0.3459 - (1.0 / 8.0) + 0.5;
     }
   }
+
+  public static class simulation {
+    // -------------------------------
+    // PID & other drivetrain variables
+    // -------------------------------
+
+    // --- PID ---
+    public static final double profiledKp = 5;
+    public static final double profiledKi = 0;
+    public static final double profiledKd = 0;
+
+    // --- Velocity --- 
+    public static final double maxVel = 5;
+    public static final double maxAccel = 2;
+
+  }
 }
