@@ -20,7 +20,7 @@ public final class Constants {
   public static class Controller {
     public static final int kDriverControllerPort = 1;
     public static final double deadband = 0.05;
-    public static final double scaleTranslation = 0.5;
+    public static final double scaleTranslation = 0.01;
   }
 
 
@@ -96,13 +96,13 @@ public final class Constants {
 
 
     // Translation PID tuning (meters)
-    public static final double translationP = 5.0;
+    public static final double translationP = 0.0;
     public static final double translationI = 0.0;
     public static final double translationD = 0.0;
 
 
     // Rotation PID tuning (radians)
-    public static final double rotationP = 5.0;
+    public static final double rotationP = 0.0;
     public static final double rotationI = 0.0;
     public static final double rotationD = 0.0;
 
