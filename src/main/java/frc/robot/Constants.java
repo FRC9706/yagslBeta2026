@@ -20,7 +20,8 @@ public final class Constants {
   public static class Controller {
     public static final int kDriverControllerPort = 1;
     public static final double deadband = 0.05;
-    public static final double scaleTranslation = 0.01;
+    public static final double scaleTranslation = 0.05;
+    public static final double scaleRotation = -0.25;
   }
 
 

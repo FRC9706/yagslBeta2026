@@ -9,6 +9,7 @@ import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -42,7 +43,7 @@ public class RobotContainer
     drivebase.getSwerveDrive(),
     () -> m_driverController.getLeftY() * -1,
     () -> m_driverController.getLeftX() * -1)
-    .withControllerRotationAxis(m_driverController::getRightX)
+    .withControllerRotationAxis(m_driverController::getRightX).scaleRotation(Constants.Controller.scaleRotation)
     .deadband(Constants.Controller.deadband)
     .scaleTranslation(Constants.Controller.scaleTranslation)
     .allianceRelativeControl(true);
@@ -65,7 +66,7 @@ public class RobotContainer
     drivebase.getSwerveDrive(),
     () -> -m_driverController.getLeftY(),
     () -> -m_driverController.getLeftX())
-    .withControllerRotationAxis(() -> m_driverController.getRawAxis(2))
+    .withControllerRotationAxis(() -> m_driverController.getRawAxis(2)).scaleRotation(Constants.Controller.scaleRotation)
     .deadband(Constants.Controller.deadband)
     .scaleTranslation(Constants.Controller.scaleTranslation)
     .allianceRelativeControl(true);
@@ -103,17 +104,28 @@ public class RobotContainer
   private void configureBindings()
   {
     Command driveFieldOrientedDirectAngle = drivebase.driveFieldOriented(driveDirectAngle);
-    Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
+    Command driveFieldOrientedAngularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
     Command driveRobotOrientedAngularVelocity  = drivebase.driveFieldOriented(driveRobotOriented);
     Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative( driveDirectAngle);
     Command driveFieldOrientedDirectAngleKeyboard = drivebase.driveFieldOriented(driveDirectAngleKeyboard);
-    Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
+    Command driveFieldOrientedAngularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
     Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleKeyboard);
 
     if (RobotBase.isSimulation()) {
       drivebase.setDefaultCommand(driveFieldOrientedDirectAngleKeyboard);
     } else {
-      drivebase.setDefaultCommand(driveRobotOrientedAngularVelocity);
+      // Set driving method
+      drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity);
+      
+      // ----- Configure controls & buttons -----
+
+      // Reset Gyro/Oreint robot to current facing position
+      m_driverController.a().onTrue(
+        Commands.run(() -> drivebase.zeroGyroWithAlliance()));
+
+      // Move foward for one second
+      m_driverController.y().whileTrue(
+        Commands.run(() -> drivebase.drive(new ChassisSpeeds(0.3, 0, 0))));
     }
 
     if (Robot.isSimulation()) {
@@ -138,7 +150,7 @@ public class RobotContainer
 
     }
     if (DriverStation.isTest()) {
-      drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
+      drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity); // Overrides drive command above!
 
       m_driverController.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       m_driverController.y().whileTrue(drivebase.driveToDistanceCommand(1.0, 0.2));
