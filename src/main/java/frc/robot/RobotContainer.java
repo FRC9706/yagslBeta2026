@@ -121,7 +121,11 @@ public class RobotContainer
 
       // Reset Gyro/Oreint robot to current facing position
       m_driverController.a().onTrue(
-        Commands.run(() -> drivebase.zeroGyroWithAlliance()));
+        Commands.sequence(
+            Commands.runOnce(drivebase::zeroGyroAndSyncHeading),
+            Commands.runOnce(drivebase::zeroGyroWithAlliance)
+        )
+    );
 
       // Move foward for one second
       m_driverController.y().whileTrue(

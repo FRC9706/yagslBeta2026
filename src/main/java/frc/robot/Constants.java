@@ -82,7 +82,7 @@ public final class Constants {
     //   Telemetry and compensation
     // -------------------------------
     public static final boolean enableTelemetry = true;
-    public static final boolean enableHeadingCorrection = false;  // Should only be used in angle control mode
+    public static final boolean enableHeadingCorrection = true;  // Should only be used in angle control mode
     public static final boolean enableCosineCompensation = false; // Disabled in sim for accuracy
     public static final boolean enableAngularVelocityComp = true; // Skew correction
     public static final double angularVelocityCompCoeff = 0.1;    // Compensation coefficient
@@ -93,19 +93,19 @@ public final class Constants {
     // -------------------------------
     //       PathPlanner PID
     // -------------------------------
-    public static final boolean enableFeedforward = true; // Enables feedforward assist in PathPlanner control loops
+    public static final boolean enableFeedforward = false; // Enables feedforward assist in PathPlanner control loops
 
 
     // Translation PID tuning (meters)
-    public static final double translationP = 0.0;
+    public static final double translationP = 20;
     public static final double translationI = 0.0;
-    public static final double translationD = 0.0;
+    public static final double translationD = 0.6;
 
 
     // Rotation PID tuning (radians)
-    public static final double rotationP = 0.0;
+    public static final double rotationP = 20;
     public static final double rotationI = 0.0;
-    public static final double rotationD = 0.0;
+    public static final double rotationD = 0.6;
 
 
     // -------------------------------

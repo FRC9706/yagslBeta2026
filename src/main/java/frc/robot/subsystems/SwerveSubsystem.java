@@ -35,6 +35,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
 import java.io.File;
 import java.io.IOException;
+import java.lang.Thread.State;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.DoubleSupplier;
@@ -347,7 +348,7 @@ public class SwerveSubsystem extends SubsystemBase {
    */
   public Command driveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier headingX,
                               DoubleSupplier headingY) {
-    // swerveDrive.setHeadingCorrection(true); // Normally you would want heading correction for this kind of control.
+    swerveDrive.setHeadingCorrection(Constants.Drivetrain.enableHeadingCorrection); // Normally you would want heading correction for this kind of control.
     return run(() -> {
       Translation2d scaledInputs = SwerveMath.scaleTranslation(new Translation2d(translationX.getAsDouble(),
                                                                                 translationY.getAsDouble()), 0.8);
@@ -489,6 +490,15 @@ public class SwerveSubsystem extends SubsystemBase {
       zeroGyro();
     }
   }
+
+  public void zeroGyroAndSyncHeading() {
+    swerveDrive.setHeadingCorrection(false); // temporarily disable heading correction
+    swerveDrive.zeroGyro();
+    swerveDrive.resetOdometry(new Pose2d(getPose().getTranslation(), Rotation2d.fromDegrees(0)));
+    if (Constants.Drivetrain.enableHeadingCorrection) {
+    swerveDrive.setHeadingCorrection(true); // re-enable heading correction if it was on
+    }
+}
 
   /**
    * Sets the drive motors to brake/coast mode.
