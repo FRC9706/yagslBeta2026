@@ -5,6 +5,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -22,6 +23,47 @@ public final class Constants {
     public static final double deadband = 0.05;
     public static final double scaleTranslation = 0.05;
     public static final double scaleRotation = -0.25;
+  }
+
+  public static class Climb {
+    public static final int motorID = 21;
+    public static final int motorID2 = 22;
+
+    public static final CurrentLimitsConfigs climbCurConfigs = 
+      new CurrentLimitsConfigs()
+        .withStatorCurrentLimitEnable(false)
+        .withSupplyCurrentLimit(Drivetrain.kStatorCurrent)
+        .withSupplyCurrentLimitEnable(true)
+        .withSupplyCurrentLowerLimit(Drivetrain.kSupplyCurrent)
+        .withSupplyCurrentLowerTime(0);
+  }
+
+  public static class Arm {
+    public static final int motorID = 14;
+    public static final double minOut = -0.5;
+    public static final double mxOut = 0.5;
+    public static final double velFF = 1.0 / 5767;
+    public static final double[] pid = {
+      0.1, // p
+      0, // i
+      0 // d
+    };
+
+  }
+
+  public static class Intout {
+    public static final int motorID = 13;
+    public static final double velFF = 1.0 / 5767;
+
+    // Limit switches
+    public static final int coralLSID = 8;
+    public static final int algaeLSID = 9;
+
+    public static final double[] pid = {
+      0.1, // p
+      0, // i
+      0 // d
+    };
   }
 
 
