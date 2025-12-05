@@ -40,6 +40,8 @@ public final class Constants {
 
   public static class Arm {
     public static final int motorID = 14;
+
+    // Arm properties
     public static final double minOut = -0.5;
     public static final double mxOut = 0.5;
     public static final double velFF = 1.0 / 5767;
@@ -48,10 +50,26 @@ public final class Constants {
       0, // i
       0 // d
     };
+  }
 
+  public static enum ArmPositions {
+    retracted(-10),
+    lowered(-45),
+    shootCor(-24),
+    grabCor(-57);
+
+    public final double pos;
+
+    ArmPositions(double pos) {
+      this.pos = pos;
+    }
   }
 
   public static class Intout {
+    // goofy ahh variable dubbed "The dummest constants I've ever had to code" - Taj Entanabi
+    public static final boolean motorReversed = false;
+    public static final int one = motorReversed ? -1 : 1;
+    public static final double oneidk = motorReversed ? -0.7 : 0.7;
     public static final int motorID = 13;
     public static final double velFF = 1.0 / 5767;
 

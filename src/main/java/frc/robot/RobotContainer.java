@@ -19,7 +19,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.subsystems.SwerveSubsystem;
+import frc.robot.subsystems.Swerve.SwerveSubsystem;
+import frc.robot.subsystems.score.Arm;
+import frc.robot.subsystems.score.Climb;
+import frc.robot.subsystems.score.Intout;
+
 import java.io.File;
 import swervelib.SwerveInputStream;
 
@@ -28,13 +32,24 @@ import swervelib.SwerveInputStream;
  * little robot logic should actually be handled in the {@link Robot} periodic methods (other than the scheduler calls).
  * Instead, the structure of the robot (including subsystems, commands, and trigger mappings) should be declared here.
  */
-public class RobotContainer
-{
+public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  final CommandXboxController m_driverController = new CommandXboxController(Constants.Controller.kDriverControllerPort);
+  final static CommandXboxController m_driverController = new CommandXboxController(Constants.Controller.kDriverControllerPort);
   // The robot's subsystems and commands are defined here...
-  private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
+  protected final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
+  public final Arm armInstance = Arm.getInstance();
+  public final Intout intoutInstance = Intout.getInstance();
+  public final Climb climbInstance = Climb.getInstance();
+
+  public SwerveSubsystem getDrivebase() {
+    return drivebase;
+  }
+
+  public CommandXboxController getDriverController() {
+    return m_driverController;
+  }
+
 
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
@@ -89,7 +104,7 @@ public class RobotContainer
    */
   public RobotContainer() {
     // Configure the trigger bindings
-    configureBindings();
+    setupBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
   }
@@ -101,8 +116,7 @@ public class RobotContainer
    * {@link CommandXboxController Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller PS4}
    * controllers or {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight joysticks}.
    */
-  private void configureBindings()
-  {
+  private void setupBindings() {
     Command driveFieldOrientedDirectAngle = drivebase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientedAngularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
     Command driveRobotOrientedAngularVelocity  = drivebase.driveFieldOriented(driveRobotOriented);
@@ -116,20 +130,7 @@ public class RobotContainer
     } else {
       // Set driving method
       drivebase.setDefaultCommand(driveFieldOrientedAngularVelocity);
-      
-      // ----- Configure controls & buttons -----
-
-      // Reset Gyro/Oreint robot to current facing position
-      m_driverController.a().onTrue(
-        Commands.sequence(
-            Commands.runOnce(drivebase::zeroGyroAndSyncHeading),
-            Commands.runOnce(drivebase::zeroGyroWithAlliance)
-        )
-    );
-
-      // Move foward for one second
-      m_driverController.y().whileTrue(
-        Commands.run(() -> drivebase.drive(new ChassisSpeeds(0.3, 0, 0))));
+      ControllerConfigurator.configureControllerTL(this);
     }
 
     if (Robot.isSimulation()) {
