@@ -1,4 +1,4 @@
-package frc.robot.subsystems.score;
+package frc.robot.subsystems.Score;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.Follower;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
