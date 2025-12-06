@@ -72,7 +72,7 @@ public class ControllerConfigurator extends RobotContainer {
     // Intake/Outake Control
 
     // left bumber: intake algae
-    m_driverController.leftBumper().whileTrue(
+    m_driverController.leftBumper().onTrue(
       Commands.sequence(
         Commands.runOnce(() -> container.intoutInstance.set(Constants.Intout.one))
        // Commands.waitUntil(() -> Intout.algaeSwitch.get()),
@@ -88,6 +88,9 @@ public class ControllerConfigurator extends RobotContainer {
       )).onFalse(
         Commands.runOnce(() -> container.intoutInstance.set(0))
       );
-  
+    }
+
+    public static void ConfigureControllerTest(RobotContainer container) {
+        // Add button and trigger bindings for the RL controller here
     }
 }

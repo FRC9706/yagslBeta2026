@@ -21,7 +21,7 @@ public final class Constants {
   public static class Controller {
     public static final int kDriverControllerPort = 1;
     public static final double deadband = 0.05;
-    public static final double scaleTranslation = 0.05;
+    public static final double scaleTranslation = 0.1;
     public static final double scaleRotation = -0.25;
   }
 
@@ -69,6 +69,7 @@ public final class Constants {
     // goofy ahh variable dubbed "The dummest constants I've ever had to code" - Taj Entanabi
     public static final boolean motorReversed = false;
     public static final int one = motorReversed ? -1 : 1;
+
     public static final double oneidk = motorReversed ? -0.7 : 0.7;
     public static final int motorID = 13;
     public static final double velFF = 1.0 / 5767;
