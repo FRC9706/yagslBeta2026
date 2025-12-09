@@ -69,7 +69,7 @@ public class Arm extends SubsystemBase {
     public boolean isOverLim = false;
     public boolean isMoving = false;
 
-    public static void goToPos(double targPos) {
+    public void goToPos(double targPos) {
         CLcontroller.setReference(targPos, ControlType.kPosition, ClosedLoopSlot.kSlot0);
     }
 

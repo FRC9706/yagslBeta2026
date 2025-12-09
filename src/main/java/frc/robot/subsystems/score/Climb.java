@@ -98,7 +98,7 @@ public class Climb extends SubsystemBase {
             return input*5.091;
         }
     
-        public static double getClimberPos() {
+        public double getClimberPos() {
                 return climbMotor.getPosition().getValueAsDouble();
             }
         
@@ -117,7 +117,7 @@ public class Climb extends SubsystemBase {
         
             static double addedRot = 7.6;
         
-            public static void goToRotPlusOne() {
+            public void goToRotPlusOne() {
                 double currentRot = getClimberPos();
             double tolerance = 0;
     

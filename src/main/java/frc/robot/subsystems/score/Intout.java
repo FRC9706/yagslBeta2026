@@ -66,28 +66,28 @@ public class Intout extends SubsystemBase {
         intout.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
     }
 
-    private static double currentTarg = 0;
+    private double currentTarg = 0;
 
-    public static void stopMotor() {
+    public void stopMotor() {
         intout.stopMotor();
         currentTarg = 0;
     }
 
-    public static void goToPos(double targPos) {
+    public void goToPos(double targPos) {
         CLcontroller.setReference(targPos, ControlType.kPosition, ClosedLoopSlot.kSlot0);
         currentTarg = targPos;
     }
 
-    public static double getTargetPos() {
+    public double getTargetPos() {
         return currentTarg;
     }
 
-    public static double getPos() {
+    public double getPos() {
         double position = intout.getEncoder().getPosition();
             return position;
     }
 
-    public static boolean atTarget() {
+    public boolean atTarget() {
         // Only check if a target has been set (and isn't zero)
         if (getTargetPos() != 0) {
             System.out.println("No target set!");
@@ -95,7 +95,7 @@ public class Intout extends SubsystemBase {
         return Math.abs(getPos() - getTargetPos()) < 0.5 && getTargetPos() != 0;
     }
 
-    public static void set(double speed) {
+    public void set(double speed) {
         // CLcontroller.setReference(targetVel, ControlType.kVelocity);
         intout.set(speed);
     }
