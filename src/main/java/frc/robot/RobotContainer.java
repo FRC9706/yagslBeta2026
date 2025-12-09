@@ -19,10 +19,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.subsystems.Score.Arm;
+import frc.robot.subsystems.Score.Climb;
+import frc.robot.subsystems.Score.Intout;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
-import frc.robot.subsystems.score.Arm;
-import frc.robot.subsystems.score.Climb;
-import frc.robot.subsystems.score.Intout;
 
 
 import java.io.File;

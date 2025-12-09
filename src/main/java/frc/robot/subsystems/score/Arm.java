@@ -1,4 +1,4 @@
-package frc.robot.subsystems.score;
+package frc.robot.subsystems.Score;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;

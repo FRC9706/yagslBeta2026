@@ -1,4 +1,4 @@
-package frc.robot.subsystems.score;
+package frc.robot.subsystems.Score;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.ControlType;
