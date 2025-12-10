@@ -22,6 +22,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.Score.Arm;
 import frc.robot.subsystems.Score.Climb;
 import frc.robot.subsystems.Score.Intout;
+import frc.robot.subsystems.Vision.Limelight;
+// import frc.robot.subsystems.Vision.LimelightHelpers;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 
 
@@ -42,6 +44,7 @@ public class RobotContainer {
   public final Arm armInstance = Arm.getInstance();
   public final Intout intoutInstance = Intout.getInstance();
   public final Climb climbInstance = Climb.getInstance();
+  public final Limelight limelightInstance = Limelight.getInstance();
 
   public SwerveSubsystem getDrivebase() {
     return drivebase;
@@ -120,14 +123,16 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand()
-  {
+  public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return drivebase.getAutonomousCommand("New Auto");
   }
 
-  public void setMotorBrake(boolean brake)
-  {
+  public void setMotorBrake(boolean brake) {
     drivebase.setMotorBrake(brake);
+  }
+
+  public void periodic() {
+    limelightInstance.createVisionMeasurement(this);
   }
 }
