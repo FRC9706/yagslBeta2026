@@ -34,6 +34,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants;
+import frc.robot.subsystems.Vision.LimelightHelpers;
+
 import java.io.File;
 import java.io.IOException;
 // import java.lang.Thread.State;
@@ -620,6 +622,10 @@ public class SwerveSubsystem extends SubsystemBase {
    */
   public void addFakeVisionReading() {
     swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());
+  }
+
+  public void createVisionMeasurement() {
+    swerveDrive.addVisionMeasurement(LimelightHelpers.getBotPose2d("limelight"), Timer.getTimestamp());
   }
 
   /**
