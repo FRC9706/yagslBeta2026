@@ -17,7 +17,6 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 
 public class Arm extends SubsystemBase {
-
     public static Arm mInstance = null;
     public static Arm getInstance(){
         if(mInstance==null){
