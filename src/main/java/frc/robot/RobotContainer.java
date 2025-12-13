@@ -23,7 +23,7 @@ import frc.robot.subsystems.Score.Arm;
 import frc.robot.subsystems.Score.Climb;
 import frc.robot.subsystems.Score.Intout;
 import frc.robot.subsystems.Vision.Limelight;
-// import frc.robot.subsystems.Vision.LimelightHelpers;
+import frc.robot.subsystems.Swerve.SwerveConfigurator;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 
 
@@ -77,6 +77,9 @@ public class RobotContainer {
     setupBindings();
     DriverStation.silenceJoystickConnectionWarning(true);
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+
+    // Configure path planner
+    drivebase.setupPathPlanner();
   }
 
   /**
