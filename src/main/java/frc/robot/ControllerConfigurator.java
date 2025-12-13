@@ -56,8 +56,8 @@ public class ControllerConfigurator {
 
     // Intake/Outake Control
 
-    // left bumber: intake algae
-    container.getDriverController().leftBumper().whileTrue(
+    // right bumber: intake algae
+    container.getDriverController().rightBumper().whileTrue(
       Commands.sequence(
         Commands.runOnce(() -> container.intoutInstance.set(Constants.Intout.one))
        // Commands.waitUntil(() -> Intout.algaeSwitch.get()),
@@ -65,8 +65,8 @@ public class ControllerConfigurator {
         Commands.runOnce(() -> container.intoutInstance.set(0))
       );
 
-    // right bumper: outtake algae
-    container.getDriverController().rightBumper().onTrue(
+    // left bumper: outtake algae
+    container.getDriverController().leftBumper().onTrue(
       Commands.sequence(
       Commands.runOnce(() -> container.intoutInstance.set(-Constants.Intout.one))
      // Commands.waitUntil(() -> !Intout.algaeSwitch.get()),
