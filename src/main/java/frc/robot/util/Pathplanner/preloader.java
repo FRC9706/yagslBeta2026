@@ -1,4 +1,4 @@
-package frc.robot.subsystems.Autos.Pathplanner;
+package frc.robot.util.Pathplanner;
 
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj2.command.Command; // Import the Command class
