@@ -24,7 +24,7 @@ import frc.robot.subsystems.Score.Climb;
 import frc.robot.subsystems.Score.Intout;
 import frc.robot.subsystems.Vision.Limelight;
 import frc.robot.util.Controller.ControllerConfigurator;
-import frc.robot.util.Pathplanner.preloader;
+import frc.robot.util.Pathplanner.Preloader;
 import frc.robot.util.Swerve.SwerveConfigurator;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 
@@ -112,7 +112,7 @@ public class RobotContainer {
     // Configure path planner & Load Trajectories
     drivebase.setupPathPlanner();
 
-    preloader.preloadTrajectories();
+    Preloader.preloadTrajectories();
   }
 
   /**

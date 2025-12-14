@@ -1,5 +1,5 @@
 package frc.robot.subsystems.Autos.Pathplanner;
 
-public class trajectories {
+public class Trajectories {
     
 }

@@ -4,9 +4,9 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj2.command.Command; // Import the Command class
 import edu.wpi.first.wpilibj2.command.Commands;
 
-public class preloader {
+public class Preloader {
     // Private constructor to prevent instantiation (since this is a utility)
-    private preloader() {}
+    private Preloader() {}
 
     /**
      * A static container class to hold all of the preloaded PathPlanner Commands.
