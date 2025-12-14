@@ -19,12 +19,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.subsystems.Autos.Pathplanner.preloader;
 import frc.robot.subsystems.Score.Arm;
 import frc.robot.subsystems.Score.Climb;
 import frc.robot.subsystems.Score.Intout;
 import frc.robot.subsystems.Vision.Limelight;
-import frc.robot.subsystems.Swerve.SwerveConfigurator;
+import frc.robot.util.Controller.ControllerConfigurator;
+import frc.robot.util.Pathplanner.preloader;
+import frc.robot.util.Swerve.SwerveConfigurator;
 import frc.robot.subsystems.Swerve.SwerveSubsystem;
 
 
@@ -53,6 +54,35 @@ public class RobotContainer {
 
   public CommandXboxController getDriverController() {
     return m_driverController;
+  }
+
+  // Enums for the swerve input streams
+  public enum SwerveStreamType {
+    AngularVelocity,
+    DirectAngle,
+    RobotOreinted,
+    AngularVelocityKeyboard,
+    DirectAngleKeyboard
+  }
+
+  // Method to get swerve input streams for classes that cannot access the protected variables
+  public SwerveInputStream getSwerveInputStream(SwerveStreamType type) {
+    switch (type) {
+        case AngularVelocity:
+            return driveAngularVelocity;
+        case DirectAngle:
+            return driveDirectAngle;
+        case RobotOreinted:
+            return driveRobotOriented;
+        case AngularVelocityKeyboard:
+            return driveAngularVelocityKeyboard;
+        case DirectAngleKeyboard:
+            return driveDirectAngleKeyboard;
+        default:
+            // Handle error case, return null or throw an exception
+            System.err.println("Requested SwerveInputStream type not found!");
+            return null;
+    }
   }
 
   // Intiate the input streams
